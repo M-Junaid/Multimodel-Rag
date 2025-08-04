@@ -10,6 +10,7 @@ A powerful Retrieval-Augmented Generation (RAG) application that works with both
 - **📊 Visual Context**: View retrieved text and images that influenced the response
 - **🎯 Semantic Search**: Uses CLIP embeddings for unified text/image search
 - **📱 User-Friendly Interface**: Clean Streamlit web interface
+- **⚡ Fast Processing**: Optimized for performance with clean architecture
 
 ## 🏗️ Architecture
 
@@ -56,7 +57,7 @@ python run.py
 
 The application will start and open in your browser at `http://localhost:8501`
 
-## 📁 Project Structure
+## 📁 Clean Project Structure
 
 ```
 multimodal-rag-project/
@@ -64,28 +65,36 @@ multimodal-rag-project/
 ├── backend/                    # Core processing logic
 │   ├── models/                # Model management
 │   │   ├── clip_model.py      # CLIP model initialization
-│   │   └── llm_model.py       # LLM initialization
+│   │   ├── llm_model.py       # LLM initialization
+│   │   └── __init__.py        # Package initialization
 │   │
 │   ├── processing/            # Data processing
 │   │   ├── pdf_processor.py   # PDF text/image extraction
 │   │   ├── embeddings.py      # Embedding generation
-│   │   └── vector_store.py    # Vector store operations
+│   │   ├── vector_store.py    # Vector store operations
+│   │   └── __init__.py        # Package initialization
 │   │
-│   └── retrieval/             # Search and response
-│       ├── retriever.py       # Multimodal retrieval
-│       └── response_generator.py # Response generation
+│   ├── retrieval/             # Search and response
+│   │   ├── retriever.py       # Multimodal retrieval
+│   │   ├── response_generator.py # Response generation
+│   │   └── __init__.py        # Package initialization
+│   │
+│   └── __init__.py            # Package initialization
 │
 ├── frontend/                  # User interface
 │   └── streamlit_app.py       # Main Streamlit app
 │
 ├── config/                    # Configuration
-│   └── settings.py           # Application settings
+│   ├── settings.py           # Application settings
+│   └── __init__.py           # Package initialization
 │
 ├── data/                     # Data storage
-│   └── sample_pdfs/          # Sample files
+│   └── README.md             # Data directory documentation
 │
+├── venv/                     # Virtual environment (auto-created)
+├── .git/                     # Version control
+├── .gitignore               # Git ignore rules
 ├── requirements.txt          # Python dependencies
-├── .env                     # Environment variables
 ├── run.py                   # Main entry point
 └── README.md               # This file
 ```
@@ -98,11 +107,19 @@ multimodal-rag-project/
    - "What does the revenue chart show?"
    - "Summarize the main findings"
    - "What are the key metrics?"
+   - "Explain the data visualization"
 
 ### Image Search
 1. Upload a PDF manual or report
 2. Take a photo or upload an image
-3. Get analysis of similar content in the PDF
+3. Ask specific questions about the image
+4. Get analysis of similar content in the PDF
+
+### Advanced Features
+- **Camera Input**: Take photos directly from your device
+- **Image Questions**: Ask specific questions about uploaded images
+- **Context Display**: View retrieved text and images that influenced responses
+- **Adjustable Search**: Modify number of search results
 
 ## 🔧 Configuration
 
@@ -112,10 +129,11 @@ multimodal-rag-project/
 |----------|-------------|---------|
 | `OPENAI_API_KEY` | OpenAI API key (required) | - |
 | `CLIP_MODEL_NAME` | CLIP model name | `openai/clip-vit-base-patch32` |
-| `LLM_MODEL_NAME` | LLM model name | `gpt-4` |
+| `LLM_MODEL_NAME` | LLM model name | `gpt-4o` |
 | `CHUNK_SIZE` | Text chunk size | `500` |
 | `CHUNK_OVERLAP` | Text chunk overlap | `100` |
 | `DEFAULT_K` | Default search results | `5` |
+| `MAX_IMAGE_SIZE` | Max image dimensions | `(1024, 1024)` |
 
 ### Customization
 
@@ -126,6 +144,19 @@ Modify `config/settings.py` to adjust:
 - File handling options
 
 ## 🛠️ Development
+
+### Project Organization
+
+The project follows a clean, modular architecture:
+
+- **`backend/`**: Core AI/ML processing logic
+  - `models/`: Model initialization and management
+  - `processing/`: Data processing and embeddings
+  - `retrieval/`: Search and response generation
+
+- **`frontend/`**: User interface components
+- **`config/`**: Configuration management
+- **`data/`**: Data storage and sample files
 
 ### Adding New Features
 
@@ -150,6 +181,7 @@ print(f'Processed {len(docs)} documents and {len(images)} images')
 - Python 3.8+
 - 4GB+ RAM (for CLIP model)
 - Internet connection (for OpenAI API)
+- Windows 10/11, macOS, or Linux
 
 ### Python Dependencies
 - `torch>=2.0.0` - PyTorch for CLIP model
@@ -159,6 +191,8 @@ print(f'Processed {len(docs)} documents and {len(images)} images')
 - `PyMuPDF>=1.23.0` - PDF processing
 - `faiss-cpu>=1.7.4` - Vector search
 - `openai>=1.12.0` - OpenAI API
+- `Pillow>=9.5.0` - Image processing
+- `numpy>=1.24.0` - Numerical operations
 
 ## 🚨 Troubleshooting
 
@@ -186,12 +220,32 @@ pip install torch transformers --no-cache-dir
 - Check PDF contains extractable text/images
 - Try with a different PDF file
 
+**5. Import Errors**
+- Ensure all dependencies are installed: `pip install -r requirements.txt`
+- Check Python path and virtual environment activation
+
 ### Performance Tips
 
 - **Faster Processing**: Use smaller chunk sizes
 - **Better Results**: Increase number of search results (k)
 - **Memory Optimization**: Process PDFs one at a time
 - **Speed**: Keep PDFs under 50 pages for best performance
+- **Clean Environment**: Use virtual environment to avoid conflicts
+
+## 🔄 Recent Updates
+
+### Project Cleanup
+- ✅ Removed unnecessary empty files and directories
+- ✅ Cleaned up Python cache files (`__pycache__`)
+- ✅ Removed unused utility files
+- ✅ Optimized project structure
+- ✅ Added comprehensive documentation
+
+### Performance Improvements
+- Streamlined import structure
+- Optimized memory usage
+- Enhanced error handling
+- Improved user feedback
 
 ## 🤝 Contributing
 
@@ -200,6 +254,12 @@ pip install torch transformers --no-cache-dir
 3. Make your changes
 4. Add tests if applicable
 5. Submit a pull request
+
+### Development Guidelines
+- Follow the existing code structure
+- Add proper error handling
+- Update documentation for new features
+- Test thoroughly before submitting
 
 ## 📄 License
 
@@ -211,6 +271,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - **LangChain** for the RAG framework
 - **Streamlit** for the web interface
 - **PyMuPDF** for PDF processing
+- **FAISS** for efficient vector search
 
 ## 📞 Support
 
@@ -218,6 +279,16 @@ For issues and questions:
 1. Check the troubleshooting section
 2. Search existing issues on GitHub
 3. Create a new issue with detailed description
+4. Include system information and error logs
+
+## 🎯 Roadmap
+
+### Planned Features
+- [ ] Multiple PDF support
+- [ ] Document comparison
+- [ ] Export functionality
+- [ ] Advanced filtering
+- [ ] Collaborative features
 
 ---
 
