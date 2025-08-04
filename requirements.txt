@@ -1,0 +1,28 @@
+langchain-core>=0.1.0
+langchain-openai>=0.0.8
+
+# Vector database and similarity search
+faiss-cpu>=1.7.4
+numpy>=1.24.0
+
+# PDF processing
+PyMuPDF>=1.23.0
+fitz>=0.0.1.dev2
+
+# Image processing
+Pillow>=9.5.0
+
+# Web framework
+streamlit>=1.28.0
+
+# API and environment management
+openai>=1.12.0
+python-dotenv>=1.0.0
+
+# Data processing
+scikit-learn>=1.3.0
+pandas>=2.0.0
+
+# Utilities
+tqdm>=4.65.0
+python-multipart>=0.0.6
