@@ -57,7 +57,7 @@ python run.py
 
 The application will start and open in your browser at `http://localhost:8501`
 
-## 📁 Clean Project Structure
+## 📁 Project Structure
 
 ```
 multimodal-rag-project/
